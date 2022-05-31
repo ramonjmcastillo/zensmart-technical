@@ -12,6 +12,12 @@ const TodoList = ({
   const [edit, setEdit] = useState({ id: null, text: "" });
 
   const handleItemClick = (item, e) => {
+    /* 
+    Disclaimer on this code, the requirements ask that the onItemClick prop only trigger only if
+    the todo is not yet done. So currently there is no way to remove the linethrough on the todo once
+    clicked. Ideally this requirement would not be here and this will be a toggleable feature 
+    */
+
     if (!item.done) {
       onItemClick(item, e);
     }
@@ -34,9 +40,9 @@ const TodoList = ({
       <ul>
         {items.map((todo, index) => {
           return (
-            <div className="todo-list-content-container" key={index}>
+            <div className={`todo-list-content-container`} key={index}>
               <p
-                className="todo-text"
+                className={`todo-text ${todo.done && `todo-completed`}`}
                 onClick={() => handleItemClick(todo)}
                 key={index}
               >
