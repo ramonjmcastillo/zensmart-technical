@@ -5,6 +5,7 @@ import TodoForm from "./components/TodoList/Form";
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [editing, setEditing] = useState(false);
 
   const onItemClick = (item, event) => {
     let updatedTodos = todos.map((todo) => {
@@ -43,8 +44,10 @@ function App() {
         onItemClick={onItemClick}
         deleteTodo={deleteTodo}
         editTodo={editTodo}
+        editing={editing}
+        setEditing={setEditing}
       />
-      <TodoForm onSubmit={addTodo} />
+      {!editing && <TodoForm onSubmit={addTodo} />}
     </div>
   );
 }

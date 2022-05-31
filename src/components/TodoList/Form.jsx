@@ -1,31 +1,28 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import { v4 as uuidv4 } from "uuid";
 const Form = (props) => {
   const [todoInput, setTodoInput] = useState(props.edit ? props.edit.text : "");
-  const [id, setId] = useState(0);
 
   const inputRef = useRef(null);
 
   useEffect(() => {
     inputRef.current.focus();
-  });
-
-  const giveTodoId = () => {
-    setId(id + 1);
-    return id;
-  };
+  }, [inputRef]);
 
   const addTodo = (e) => {
     e.preventDefault();
 
     props.onSubmit({
-      id: giveTodoId(),
+      id: uuidv4(),
       text: todoInput,
       done: false,
     });
 
     setTodoInput("");
+    props.setEditing(false);
   };
+
+  console.log(props.edit, "props");
 
   return (
     <form className="add-form-container" onSubmit={addTodo}>

@@ -1,7 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Form from "./Form";
 
-const TodoList = ({ items, onItemClick, deleteTodo, editTodo }) => {
+const TodoList = ({
+  items,
+  onItemClick,
+  deleteTodo,
+  editTodo,
+  editing,
+  setEditing,
+}) => {
   const [edit, setEdit] = useState({ id: null, text: "" });
 
   const handleItemClick = (item, e) => {
@@ -19,10 +26,8 @@ const TodoList = ({ items, onItemClick, deleteTodo, editTodo }) => {
   };
 
   if (edit.id !== null) {
-    return <Form edit={edit} onSubmit={submitEdit} />;
+    return <Form setEditing={setEditing} edit={edit} onSubmit={submitEdit} />;
   }
-
-  console.log(edit, "edit");
 
   return (
     <div className="todo-list-container">
@@ -41,7 +46,10 @@ const TodoList = ({ items, onItemClick, deleteTodo, editTodo }) => {
                 <button
                   type="button"
                   className="edit-button"
-                  onClick={() => setEdit({ id: todo.id, text: todo.text })}
+                  onClick={() => {
+                    setEdit({ id: todo.id, text: todo.text });
+                    setEditing(true);
+                  }}
                 >
                   Edit
                 </button>
