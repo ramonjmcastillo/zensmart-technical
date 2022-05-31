@@ -25,22 +25,31 @@ const TodoList = ({ items, onItemClick, deleteTodo, editTodo }) => {
   console.log(edit, "edit");
 
   return (
-    <div>
+    <div className="todo-list-container">
       <ul>
         {items.map((todo, index) => {
           return (
-            <div key={index}>
-              <li onClick={() => handleItemClick(todo)} key={index}>
+            <div className="todo-list-content-container" key={index}>
+              <p
+                className="todo-text"
+                onClick={() => handleItemClick(todo)}
+                key={index}
+              >
                 {todo.text}
-              </li>
-              <div>
+              </p>
+              <div className="action-container">
                 <button
                   type="button"
+                  className="edit-button"
                   onClick={() => setEdit({ id: todo.id, text: todo.text })}
                 >
                   Edit
                 </button>
-                <button type="button" onClick={() => deleteTodo(todo.id)}>
+                <button
+                  className="delete-button"
+                  type="button"
+                  onClick={() => deleteTodo(todo.id)}
+                >
                   Delete
                 </button>
               </div>
