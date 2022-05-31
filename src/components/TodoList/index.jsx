@@ -15,7 +15,7 @@ const TodoList = ({
     /* 
     Disclaimer on this code, the requirements ask that the onItemClick prop only trigger only if
     the todo is not yet done. So currently there is no way to remove the linethrough on the todo once
-    clicked. Ideally this requirement would not be here and this will be a toggleable feature 
+    clicked. Ideally this will be a toggleable feature 
     */
 
     if (!item.done) {
