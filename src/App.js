@@ -4,10 +4,26 @@ import TodoList from "./components/TodoList";
 import TodoForm from "./components/TodoList/Form";
 
 function App() {
-  const [items, setItems] = useState([]);
+  const [todos, setTodos] = useState([]);
 
   const onItemClick = (item, event) => {
-    console.log(item, event);
+    let updatedTodos = todos.map((todo) => {
+      if (todo.id === item.id) {
+        todo.done = !todo.done;
+      }
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+  };
+
+  const deleteTodo = (id) => {
+    const updatedTodos = [...todos].filter((todo) => todo.id !== id);
+    setTodos(updatedTodos);
+  };
+
+  const editTodo = (id, text) => {
+    setTodos((prev) => prev.map((item) => (item.id === id ? text : item)));
   };
 
   const addTodo = (item) => {
@@ -15,14 +31,19 @@ function App() {
       return;
     }
 
-    const newTodos = [item, ...items];
-    setItems(newTodos);
+    const newTodos = [item, ...todos];
+    setTodos(newTodos);
   };
 
   return (
     <div className="App">
       <h1>My Todolist</h1>
-      <TodoList items={items} onItemClick={onItemClick} />
+      <TodoList
+        items={todos}
+        onItemClick={onItemClick}
+        deleteTodo={deleteTodo}
+        editTodo={editTodo}
+      />
       <TodoForm onSubmit={addTodo} />
     </div>
   );
