@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const Form = (props) => {
   const [todoInput, setTodoInput] = useState("");
   const [id, setId] = useState(0);
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  });
 
   const giveTodoId = () => {
     setId(id + 1);
@@ -28,6 +34,7 @@ const Form = (props) => {
         type="text"
         placeholder="Add a Todo"
         value={todoInput}
+        ref={inputRef}
       />
       <button> Add Todo</button>
     </form>
